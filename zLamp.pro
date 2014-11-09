@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        lamps.cpp
+        lamps.cpp \
+    zlamp.cpp
 
-HEADERS  += lamps.h
+HEADERS  += lamps.h \
+    zlamp.h
 
 FORMS    += lamps.ui

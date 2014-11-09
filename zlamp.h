@@ -9,7 +9,7 @@ class ZLamp
 {
 public:
   ZLamp();
-  ZLamp(QPoint point, QColor color=Qt::red, bool lit=true, int diameter=80);
+  ZLamp(QRect rect, QColor color=Qt::red, bool lit=true);
   ~ZLamp();
 
   void Render(QPainter &painter);
@@ -22,8 +22,8 @@ private:
   QPainterPath bezelPath;
   QLinearGradient bezelGradient;
 
-  int bezelDiameter;
   int bezelWidth;
+//  qreal bezelRadius;
 
   QRect lampRect;
   QPainterPath lampPath;
@@ -32,6 +32,7 @@ private:
   QColor lampColor;
   QColor lampColorLow;
   bool lampLit;
+  qreal lampRadius;
 
   QPoint focalPoint;
 };
