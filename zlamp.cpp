@@ -22,7 +22,7 @@ ZLamp::~ZLamp()
 void ZLamp::Dimension()
 {
   // Bezel width
-  bezelWidth = 7;
+  bezelWidth = bezelRect.height()/12;
 
   // Lamp bounding rectangle
   lampRect=bezelRect.adjusted(bezelWidth, bezelWidth, -bezelWidth, -bezelWidth);
@@ -35,8 +35,15 @@ void ZLamp::Dimension()
   lampRadius = bezelWidth * lampRect.width()/bezelRect.width();
 
   // Lamp "Bright spot"
-//  focalPoint = lampRect.center() + QPoint(lampRect.width()/4, -lampRect.height()/4);
-  focalPoint = lampRect.center();
+  lampGradient = QRadialGradient(lampRect.center(), 2);
+  lampGradient.setSpread(QGradient::ReflectSpread);
+
+  lampFont = QFont("Arial", lampRect.height()*0.6, QFont::DemiBold);
+}
+
+void ZLamp::setText(QString text)
+{
+  lampText = text;
 }
 
 void ZLamp::Render(QPainter &painter)
@@ -48,25 +55,24 @@ void ZLamp::Render(QPainter &painter)
   lampColorLow.setHsv(lampColor.hue(), lampColor.saturation(), lampColor.value()*0.8);
 
   // Set Lamp gradients
-//  lampGradient = QRadialGradient(focalPoint, lampRect.height());
-  lampGradient = QRadialGradient(focalPoint, 2);
   lampGradient.setColorAt(0.0, lampColor);
-/*  lampGradient.setColorAt(0.1, lampColorLow);
-  lampGradient.setColorAt(0.2, lampColor);
-  lampGradient.setColorAt(0.3, lampColorLow);
-  lampGradient.setColorAt(0.4, lampColor);
-*/  lampGradient.setColorAt(1.0, lampColorLow);
-  lampGradient.setSpread(QGradient::ReflectSpread);
+  lampGradient.setColorAt(1.0, lampColorLow);
 
   // Draw everything
   painter.setRenderHint(QPainter::Antialiasing);
 
   painter.setPen(Qt::NoPen);
-
   painter.setBrush(bezelGradient);
   painter.drawRoundedRect(bezelRect, bezelWidth, bezelWidth);
 
+  painter.setPen(Qt::NoPen);
   painter.setBrush(lampGradient);
   painter.drawRoundedRect(lampRect, lampRadius, lampRadius);
+
+  painter.setPen(Qt::black);
+  painter.setFont(lampFont);
+  painter.drawText(lampRect, Qt::AlignCenter ,lampText);
+
 }
+
 

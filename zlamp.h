@@ -13,6 +13,7 @@ public:
   ~ZLamp();
 
   void Render(QPainter &painter);
+  void setText(QString text);
 
 private:
   void Dimension(void);
@@ -34,7 +35,8 @@ private:
   bool lampLit;
   qreal lampRadius;
 
-  QPoint focalPoint;
+  QFont lampFont;
+  QString lampText;
 };
 
 #endif // ZLAMP_H

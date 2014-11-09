@@ -57,10 +57,12 @@ void Lamps::paintEvent(QPaintEvent *event)
       if (col == 6) {
         col = 3; //white
       }
-//      ZLamp Lamp(QPoint(50+x*80, 50+y*80), (Qt::GlobalColor)(col), qrand() % 2, 70);
-//      ZLamp Lamp(QPoint(50+x*85, 50+y*85), QColor((127 + qrand() % 128), (127 + qrand() % 128), (127 + qrand() % 128)), qrand() % 2);
-      ZLamp Lamp(QRect(50+x*200, 50+y*80, 180, 70), QColor((127 + qrand() % 128), (127 + qrand() % 128), (127 + qrand() % 128)), qrand() % 2);
-//      ZLamp Lamp(QRect(50+x*200, 50+y*80, 180, 70), (Qt::GlobalColor)(col), qrand() % 2);
+      QColor color =  (Qt::GlobalColor)(col);
+//      QColor color =  QColor((127 + qrand() % 128), (127 + qrand() % 128), (127 + qrand() % 128));
+      ZLamp Lamp(QRect(50+x*200, 50+y*80, 180, 70), color, qrand() % 2);
+      Lamp.setText(QString::number( color.red(), 16).leftJustified(2,'0')
+                   + QString::number( color.green(), 16).leftJustified(2,'0')
+                   + QString::number( color.blue(), 16).leftJustified(2,'0'));
       Lamp.Render(painter);
     }
   }
