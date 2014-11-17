@@ -20,3 +20,6 @@ HEADERS  += lamps.h \
     zlamp.h
 
 FORMS    += lamps.ui
+
+OTHER_FILES += \
+    LICENSE
